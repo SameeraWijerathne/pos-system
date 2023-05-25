@@ -94,13 +94,13 @@
         <input class="form-control text-center" type="text" placeholder="Search Item">
     </section>
     <section class="p-2">
-        <table id="tbl-customers" class="table table-hover table-bordered">
+        <table id="tbl-items" class="table table-hover table-bordered">
             <thead class="table-light">
             <tr>
                 <th class="text-center">Code</th>
                 <th>Description</th>
                 <th class="d-none d-xl-table-cell">Qty</th>
-                <th class="contact text-center">Unit price</th>
+                <th class="price text-center">Price</th>
                 <th></th>
             </tr>
             </thead>
@@ -149,27 +149,27 @@
             </div>
             <div class="modal-body text-center">
                 <div class="mb-3">
-                    <label for="txt-id" class="form-label">Item Code</label>
-                    <input type="text" class="form-control text-center" id="txt-id" placeholder="Generated Code"
+                    <label for="txt-code" class="form-label">Item Code</label>
+                    <input type="text" class="form-control text-center" id="txt-code" placeholder="Generated Code"
                            disabled>
                 </div>
                 <div class="mb-3">
-                    <label for="txt-name" class="form-label">Description</label>
-                    <input type="text" class="form-control text-center" id="txt-name" placeholder="Eg. Computer">
+                    <label for="txt-description" class="form-label">Description</label>
+                    <input type="text" class="form-control text-center" id="txt-description" placeholder="Eg. Computer">
                     <div class="invalid-feedback">
                         Description can't be empty
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="txt-contact" class="form-label">Unit Price</label>
-                    <input type="text" class="form-control text-center" id="txt-contact" placeholder="Eg. 50,000">
+                    <label for="txt-unit-price" class="form-label">Unit Price</label>
+                    <input type="text" class="form-control text-center" id="txt-unit-price" placeholder="Eg. 50,000">
                     <div class="invalid-feedback">
                         Unit price can't be empty
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="txt-address" class="form-label">Initial Stock</label>
-                    <input type="text" class="form-control text-center" id="txt-address" placeholder="Eg. 100">
+                    <label for="txt-initial-stock" class="form-label">Initial Stock</label>
+                    <input type="text" class="form-control text-center" id="txt-initial-stock" placeholder="Eg. 100">
                     <div class="invalid-feedback">
                         Initial stock can't be empty
                     </div>
