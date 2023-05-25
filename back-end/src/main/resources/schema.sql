@@ -6,3 +6,10 @@ CREATE TABLE IF NOT EXISTS Customer (
 );
 
 ALTER TABLE Customer ADD CONSTRAINT uk_contact UNIQUE (contact);
+
+CREATE TABLE IF NOT EXISTS Item (
+    code INT AUTO_INCREMENT PRIMARY KEY,
+    description VARCHAR(250) NOT NULL,
+    unit_price DECIMAL NOT NULL,
+    stock INT NOT NULL
+);

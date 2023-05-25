@@ -19,7 +19,7 @@ btnSave.on('click', ()=> {
    if (!validateData()){
        return false;
    }
-   
+
 });
 
 function validateData() {
