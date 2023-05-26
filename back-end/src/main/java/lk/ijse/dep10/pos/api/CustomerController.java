@@ -21,7 +21,29 @@ public class CustomerController {
     @Autowired
     private BasicDataSource pool;
 
-    // DELETE http://localhost8080/pos/customers/C001
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateCustomer(@PathVariable("id") int customerId, @RequestBody CustomerDTO customer) {
+        try (Connection connection = pool.getConnection()) {
+            PreparedStatement stm = connection.prepareStatement("UPDATE Customer SET  name=?, address=?, contact=? WHERE id=?");
+            stm.setString(1, customer.getName());
+            stm.setString(2, customer.getName());
+            stm.setString(3, customer.getContact());
+            stm.setInt(4, customerId);
+            int affectedRows = stm.executeUpdate();
+            if (affectedRows == 1) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                ResponseErrorDTO error = new ResponseErrorDTO(404, "Customer");
+                return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+            }
+        } catch (SQLException e) {
+            if (e.getSQLState().equals("23000")) {
+                return new ResponseEntity<>(new ResponseErrorDTO(HttpStatus.CONFLICT.value(), e.getMessage()), HttpStatus.CONFLICT);
+            } else {
+                return new ResponseEntity<>(new ResponseErrorDTO(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCustomer(@PathVariable("id") String customerId) {
         try (Connection connection = pool.getConnection()) {
