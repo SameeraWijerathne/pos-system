@@ -50,11 +50,6 @@ public class CustomerController {
     }
     @PostMapping
     public ResponseEntity<?> saveCustomer(@RequestBody CustomerDTO customer){
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         try (Connection connection = pool.getConnection()) {
             PreparedStatement stm = connection.prepareStatement("INSERT INTO Customer (name, address, contact) VALUES (?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);

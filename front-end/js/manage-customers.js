@@ -81,6 +81,8 @@ btnSave.on('click', () => {
     /* 3. Let's open the request */
     xhr.open('POST', 'http://localhost:8080/pos/customers', true);
 
+    showProgress(xhr);
+
     /* 4. Let's set some request headers */
     xhr.setRequestHeader('Content-Type', 'application/json');
 
@@ -214,8 +216,28 @@ function getCustomers() {
     const query = (searchText) ? `?q=${searchText}` : "";
     xhr.open('GET', 'http://localhost:8080/pos/customers' + query, true);
 
+    const tfoot = $("#tbl-customers tfoot tr td:first-child");
+    xhr.addEventListener('loadstart', ()=> tfoot.text("Please wait!"))
+    xhr.addEventListener('loadend', () => tfoot.text("No customer records are found!"));
+
     xhr.send();
 }
 
 getCustomers();
 $("#txt-search").on('input', () => getCustomers());
+
+function showProgress(xhr) {
+    const progressBar = $("#progress-bar");
+    xhr.addEventListener('loadstart', ()=> progressBar.width('5%'));
+    xhr.addEventListener('progress', (eventData)=> {
+        const downloadedBytes = eventData.loaded;
+        const totalBytes = eventData.total;
+        const progress = downloadedBytes / totalBytes * 100;
+        progressBar.width(`${progress}`);
+    });
+    xhr.addEventListener('loadend', ()=> {
+        progressBar.width('100%');
+        setTimeout(() => progressBar.width('0%'), 500);
+    });
+
+}

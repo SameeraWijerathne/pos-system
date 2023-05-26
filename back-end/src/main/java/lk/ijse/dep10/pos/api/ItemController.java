@@ -47,12 +47,6 @@ public class ItemController {
     }
     @PostMapping
     public ResponseEntity<?> saveItem(@RequestBody ItemDTO item) {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
         try (Connection connection = pool.getConnection()) {
             PreparedStatement stm = connection.prepareStatement("INSERT INTO Item (description, unit_price, stock) VALUES (?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);

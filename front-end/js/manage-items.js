@@ -34,7 +34,7 @@ btnSave.on('click', ()=> {
 
     const description = txtDescription.val().trim();
     const unitPrice = Big(+txtUnitPrice.val().trim()).toFixed(2);
-    const stock = txtInitialStock.val().trim();
+    const stock = +txtInitialStock.val().trim();
 
     let item = {
         description, unitPrice, stock
