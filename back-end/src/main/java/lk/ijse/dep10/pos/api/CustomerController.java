@@ -21,7 +21,29 @@ public class CustomerController {
     @Autowired
     private BasicDataSource pool;
 
-    // GET http://localhost:8080/pos/customers?q=Galle
+    // DELETE http://localhost8080/pos/customers/C001
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteCustomer(@PathVariable("id") String customerId) {
+        try (Connection connection = pool.getConnection()) {
+            PreparedStatement stm = connection.prepareStatement("DELETE FROM Customer WHERE id=?");
+            stm.setString(1, customerId);
+            int affectedRows = stm.executeUpdate();
+            if (affectedRows == 1) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                ResponseErrorDTO response = new ResponseErrorDTO(404, "Invalid customer ID");
+                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+            }
+        } catch (SQLException e) {
+            if (e.getSQLState().equals("23000")) {
+                return new ResponseEntity<>(new ResponseErrorDTO(HttpStatus.CONFLICT.value(), e.getMessage()), HttpStatus.CONFLICT);
+            } else {
+                return new ResponseEntity<>(new ResponseErrorDTO(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+    }
+
     @GetMapping
     public ResponseEntity<?> getCustomers(@RequestParam(value = "q", required = false) String query){
         if (query == null) query = "";
