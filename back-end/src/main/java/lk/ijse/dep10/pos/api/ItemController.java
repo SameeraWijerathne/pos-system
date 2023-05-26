@@ -6,11 +6,9 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.sql.*;
 
 @RestController
@@ -21,6 +19,7 @@ public class ItemController {
     @Autowired
     private BasicDataSource pool;
 
+    @PostMapping
     public ResponseEntity saveItem(@RequestBody ItemDTO item) {
         try {
             Thread.sleep(3000);
@@ -32,7 +31,10 @@ public class ItemController {
             PreparedStatement stm = connection.prepareStatement("INSERT INTO Item (description, unit_price, stock) VALUES (?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             stm.setString(1, item.getDescription());
-            stm.setBigDecimal(2, item.getUnitPrice());
+
+            BigDecimal unitPrice = new BigDecimal(String.valueOf(item.getUnitPrice()));
+
+            stm.setBigDecimal(2, unitPrice);
             stm.setInt(3, item.getStock());
             stm.executeUpdate();
             ResultSet generatedKeys = stm.getGeneratedKeys();

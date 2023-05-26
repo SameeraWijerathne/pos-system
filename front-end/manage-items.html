@@ -13,8 +13,9 @@
     <script defer src="node_modules/jquery/dist/jquery.min.js"></script>
     <script defer src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script defer src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script defer src="node_modules/big.js/big.mjs"></script>
     <script defer src="js/main.js"></script>
-    <script defer src="js/manage-items.js"></script>
+    <script defer type="module" src="js/manage-items.js"></script>
 </head>
 
 <body class="container-xl gx-0 border-end border-start">
@@ -97,7 +98,7 @@
         <table id="tbl-items" class="table table-hover table-bordered">
             <thead class="table-light">
             <tr>
-                <th class="text-center">Code</th>
+                <th class="text-center">Item Code</th>
                 <th>Description</th>
                 <th class="d-none d-xl-table-cell">Qty</th>
                 <th class="price text-center">Price</th>
@@ -109,7 +110,7 @@
                 <td class="text-center">I001</td>
                 <td>Mouse</td>
                 <td class="d-none d-xl-table-cell">10</td>
-                <td class="contact text-center">500</td>
+                <td class="price text-center">500</td>
                 <td>
                     <div class="actions d-flex gap-3 justify-content-center">
                         <svg data-bs-toggle="tooltip" data-bs-title="Edit Item" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
