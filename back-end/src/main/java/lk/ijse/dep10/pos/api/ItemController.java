@@ -20,7 +20,7 @@ public class ItemController {
     private BasicDataSource pool;
 
     @PostMapping
-    public ResponseEntity saveItem(@RequestBody ItemDTO item) {
+    public ResponseEntity<?> saveItem(@RequestBody ItemDTO item) {
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -41,12 +41,12 @@ public class ItemController {
             generatedKeys.next();
             int code = generatedKeys.getInt(1);
             item.setCode(code);
-            return new ResponseEntity(item, HttpStatus.CREATED);
+            return new ResponseEntity<>(item, HttpStatus.CREATED);
         } catch (SQLException e) {
             if (e.getSQLState().equals("23000")) {
-                return new ResponseEntity(new ResponseErrorDTO(HttpStatus.CONFLICT.value(), e.getMessage()), HttpStatus.CONFLICT);
+                return new ResponseEntity<>(new ResponseErrorDTO(HttpStatus.CONFLICT.value(), e.getMessage()), HttpStatus.CONFLICT);
             } else {
-                return new ResponseEntity(new ResponseErrorDTO(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(new ResponseErrorDTO(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
     }
