@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/items")
@@ -19,6 +21,30 @@ public class ItemController {
     @Autowired
     private BasicDataSource pool;
 
+    @GetMapping
+    public ResponseEntity<?> getItems(@RequestParam(value = "q", required = false) String query) {
+        if (query == null) query = "";
+        try (Connection connection = pool.getConnection()) {
+            PreparedStatement stm = connection.prepareStatement("SELECT * FROM Item WHERE code LIKE ? OR description LIKE ? OR unit_price LIKE ? OR stock LIKE ?");
+            query = "%" + query + "%";
+            for (int i = 1; i <= 4; i++) {
+                stm.setString(i, query);
+            }
+            ResultSet rst = stm.executeQuery();
+            List<ItemDTO> itemList = new ArrayList<>();
+            while (rst.next()) {
+                int code = rst.getInt("code");
+                String description = rst.getString("description");
+                BigDecimal unitPrice = rst.getBigDecimal("unit_price");
+                int stock = rst.getInt("stock");
+                itemList.add(new ItemDTO(code, description, unitPrice, stock));
+            }
+            return new ResponseEntity<>(itemList, HttpStatus.OK);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ResponseErrorDTO(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @PostMapping
     public ResponseEntity<?> saveItem(@RequestBody ItemDTO item) {
         try {
