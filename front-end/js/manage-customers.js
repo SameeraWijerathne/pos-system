@@ -55,10 +55,10 @@ btnSave.on('click', () => {
     /* 3. Let's open the request */
     xhr.open('POST', 'http://localhost:8080/pos/customers', true);
 
-    showProgress(xhr);
-
     /* 4. Let's set some request headers */
     xhr.setRequestHeader('Content-Type', 'application/json');
+
+    showProgress(xhr);
 
     /* 5. Okay, time to send the request */
     xhr.send(JSON.stringify(customer));
@@ -182,7 +182,7 @@ function getCustomers() {
             } else {
                 tbodyElm.empty();
                 $("#tbl-customers tfoot").show();
-                showToast('error', 'Failed', "Failed to retrieve customers");
+                showToast('error', 'Failed', "Failed to fetch customers");
                 console.log(JSON.parse(xhr.responseText));
             }
         }
@@ -209,7 +209,7 @@ function showProgress(xhr) {
         const downloadedBytes = eventData.loaded;
         const totalBytes = eventData.total;
         const progress = downloadedBytes / totalBytes * 100;
-        progressBar.width(`${progress}`);
+        progressBar.width(`${progress}%`);
     });
     xhr.addEventListener('loadend', ()=> {
         progressBar.width('100%');
@@ -218,14 +218,14 @@ function showProgress(xhr) {
 }
 
 tbodyElm.on('click', ".delete", (eventData) => {
-    /* ZHR -> jQuery AJAX*/
+    /* XHR -> jQuery AJAX*/
     const id = +$(eventData.target).parents("tr").children("td:first-child").text().replace('C', '');
     const xhr = new XMLHttpRequest();
     const jqxhr = $.ajax(`http://localhost:8080/pos/customers/${id}`, {
         method: 'DELETE',
         xhr: ()=> xhr // This is a hack to obtain the xhr that is used by jQuery
     });
-    showToast(xhr);
+    showProgress(xhr);
     jqxhr.done(()=>{
         showToast('success', 'Deleted', 'Customer has been deleted successfully');
         $(eventData.target).tooltip('dispose');
@@ -234,4 +234,17 @@ tbodyElm.on('click', ".delete", (eventData) => {
     jqxhr.fail(()=>{
         showToast('error', 'Failed', 'Failed to delete the customer, try again!');
     })
+
+    /*
+*   const jqxhr = $.ajax(url, {
+*               method: 'GET',
+*               contentType: 'application/json',
+*               data: 'Request Body'
+*           });
+*
+*   jqxhr.done((response, status)=> {});
+*   jqxhr.fail(()=> {});
+*   jqxhr.always(()=> {});
+*
+* */
 });
