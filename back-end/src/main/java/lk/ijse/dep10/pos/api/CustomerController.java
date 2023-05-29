@@ -21,6 +21,31 @@ public class CustomerController {
     @Autowired
     private BasicDataSource pool;
 
+    @GetMapping("/{idOrContact}")
+    public ResponseEntity<?> getCustomer(@PathVariable String idOrContact) {
+        try (Connection connection = pool.getConnection()) {
+            PreparedStatement stm = connection.prepareStatement("SELECT * FROM Customer WHERE id=? OR contact=?");
+            stm.setString(1, idOrContact);
+            stm.setString(2, idOrContact);
+            ResultSet rst = stm.executeQuery();
+            if (rst.next()) {
+                int id = rst.getInt("id");
+                String name = rst.getString("name");
+                String contact = rst.getString("contact");
+                String address = rst.getString("address");
+                CustomerDTO customer = new CustomerDTO(id, name, contact, address);
+                return new ResponseEntity<>(customer, HttpStatus.OK);
+            } else {
+                ResponseErrorDTO error = new ResponseErrorDTO(404, "No customer record found");
+                return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            ResponseErrorDTO error = new ResponseErrorDTO(500, "Something went wrong, Please try again!");
+            return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateCustomer(@PathVariable("id") int customerId, @RequestBody CustomerDTO customer) {
         try (Connection connection = pool.getConnection()) {
