@@ -21,6 +21,27 @@ public class ItemController {
     @Autowired
     private BasicDataSource pool;
 
+    @DeleteMapping("/{code}")
+    public ResponseEntity<?> deleteItem(@PathVariable("code") String itemCode) {
+        try (Connection connection = pool.getConnection()) {
+            PreparedStatement stm = connection.prepareStatement("DELETE FROM Item WHERE code=?");
+            stm.setString(1, itemCode);
+            int affectedRows = stm.executeUpdate();
+            if (affectedRows == 1) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                ResponseErrorDTO response = new ResponseErrorDTO(404, "Item code not found");
+                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+            }
+        } catch (SQLException e) {
+            if (e.getSQLState().equals("23000")) {
+                return new ResponseEntity<>(new ResponseErrorDTO(HttpStatus.CONFLICT.value(), e.getMessage()), HttpStatus.CONFLICT);
+            } else {
+                return new ResponseEntity<>(new ResponseErrorDTO(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+        }
+    }
     @GetMapping
     public ResponseEntity<?> getItems(@RequestParam(value = "q", required = false) String query) {
         if (query == null) query = "";

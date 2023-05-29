@@ -33,7 +33,7 @@ public class CustomerController {
             if (affectedRows == 1) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {
-                ResponseErrorDTO error = new ResponseErrorDTO(404, "Customer");
+                ResponseErrorDTO error = new ResponseErrorDTO(404, "Customer ID not found");
                 return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
             }
         } catch (SQLException e) {
@@ -53,7 +53,7 @@ public class CustomerController {
             if (affectedRows == 1) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {
-                ResponseErrorDTO response = new ResponseErrorDTO(404, "Invalid customer ID");
+                ResponseErrorDTO response = new ResponseErrorDTO(404, "Customer ID not found");
                 return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
             }
         } catch (SQLException e) {
