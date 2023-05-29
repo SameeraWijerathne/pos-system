@@ -21,6 +21,30 @@ public class ItemController {
     @Autowired
     private BasicDataSource pool;
 
+    @PatchMapping("/{code}")
+    public ResponseEntity<?> updateItem(@PathVariable("code") int itemCode, @RequestBody ItemDTO item) {
+        try (Connection connection = pool.getConnection()) {
+            PreparedStatement stm = connection.prepareStatement("UPDATE Item SET description=?, unit_price=?, stock=? WHERE code=?");
+            stm.setString(1, item.getDescription());
+            BigDecimal unitPrice = new BigDecimal(String.valueOf(item.getUnitPrice()));
+            stm.setBigDecimal(2, unitPrice);
+            stm.setInt(3, item.getStock());
+            stm.setInt(4, itemCode);
+            int affectedFRows = stm.executeUpdate();
+            if (affectedFRows == 1) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                ResponseErrorDTO error = new ResponseErrorDTO(404, "Item code not found");
+                return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+            }
+        } catch (SQLException e) {
+            if (e.getSQLState().equals("23000")) {
+                return new ResponseEntity<>(new ResponseErrorDTO(HttpStatus.CONFLICT.value(), e.getMessage()), HttpStatus.CONFLICT);
+            } else {
+                return new ResponseEntity<>(new ResponseErrorDTO(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+    }
     @DeleteMapping("/{code}")
     public ResponseEntity<?> deleteItem(@PathVariable("code") String itemCode) {
         try (Connection connection = pool.getConnection()) {
