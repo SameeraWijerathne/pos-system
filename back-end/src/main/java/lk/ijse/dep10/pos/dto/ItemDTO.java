@@ -10,8 +10,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemDTO {
-    private Integer code;
+    private String code;
     private String description;
+    private int qty;
     private BigDecimal unitPrice;
-    private Integer stock;
 }

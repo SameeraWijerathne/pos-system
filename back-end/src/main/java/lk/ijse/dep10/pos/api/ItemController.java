@@ -21,15 +21,40 @@ public class ItemController {
     @Autowired
     private BasicDataSource pool;
 
-    @PatchMapping("/{code}")
-    public ResponseEntity<?> updateItem(@PathVariable("code") int itemCode, @RequestBody ItemDTO item) {
+    @GetMapping("/{code}")
+    public ResponseEntity<?> getItem(@PathVariable String code) {
         try (Connection connection = pool.getConnection()) {
-            PreparedStatement stm = connection.prepareStatement("UPDATE Item SET description=?, unit_price=?, stock=? WHERE code=?");
+            PreparedStatement stm = connection.prepareStatement("SELECT * FROM Item WHERE code=?");
+            stm.setString(1, code);
+            ResultSet rst = stm.executeQuery();
+            if (rst.next()) {
+                String description = rst.getString("description");
+                int qty = rst.getInt("qty");
+                BigDecimal unitPrice = rst.getBigDecimal("unit_price").setScale(2);
+                ItemDTO item = new ItemDTO(code, description, qty, unitPrice);
+                return new ResponseEntity<>(item, HttpStatus.OK);
+            } else {
+                ResponseErrorDTO error = new ResponseErrorDTO(404, "Item not found");
+                return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            ResponseErrorDTO error = new ResponseErrorDTO(500, "Failed to fetch the item");
+            return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PatchMapping("/{code}")
+    public ResponseEntity<?> updateItem(@PathVariable("code") String itemCode, @RequestBody ItemDTO item) {
+        try (Connection connection = pool.getConnection()) {
+            PreparedStatement stm = connection.prepareStatement("UPDATE Item SET description=?, qty=?, unit_price=? WHERE code=?");
             stm.setString(1, item.getDescription());
-            BigDecimal unitPrice = new BigDecimal(String.valueOf(item.getUnitPrice()));
-            stm.setBigDecimal(2, unitPrice);
-            stm.setInt(3, item.getStock());
-            stm.setInt(4, itemCode);
+            stm.setInt(2, item.getQty());
+
+            BigDecimal unitPrice = new BigDecimal(String.valueOf(item.getUnitPrice())).setScale(2);
+            stm.setBigDecimal(3, unitPrice);
+            stm.setString(4, itemCode);
+
             int affectedFRows = stm.executeUpdate();
             if (affectedFRows == 1) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -70,7 +95,7 @@ public class ItemController {
     public ResponseEntity<?> getItems(@RequestParam(value = "q", required = false) String query) {
         if (query == null) query = "";
         try (Connection connection = pool.getConnection()) {
-            PreparedStatement stm = connection.prepareStatement("SELECT * FROM Item WHERE code LIKE ? OR description LIKE ? OR unit_price LIKE ? OR stock LIKE ?");
+            PreparedStatement stm = connection.prepareStatement("SELECT * FROM Item WHERE code LIKE ? OR description LIKE ? OR qty LIKE ? OR unit_price LIKE ?");
             query = "%" + query + "%";
             for (int i = 1; i <= 4; i++) {
                 stm.setString(i, query);
@@ -78,11 +103,11 @@ public class ItemController {
             ResultSet rst = stm.executeQuery();
             List<ItemDTO> itemList = new ArrayList<>();
             while (rst.next()) {
-                int code = rst.getInt("code");
+                String code = rst.getString("code");
                 String description = rst.getString("description");
-                BigDecimal unitPrice = rst.getBigDecimal("unit_price");
-                int stock = rst.getInt("stock");
-                itemList.add(new ItemDTO(code, description, unitPrice, stock));
+                int qty = rst.getInt("qty");
+                BigDecimal unitPrice = rst.getBigDecimal("unit_price").setScale(2);
+                itemList.add(new ItemDTO(code, description, qty, unitPrice));
             }
             return new ResponseEntity<>(itemList, HttpStatus.OK);
         } catch (SQLException e) {
@@ -93,19 +118,14 @@ public class ItemController {
     @PostMapping
     public ResponseEntity<?> saveItem(@RequestBody ItemDTO item) {
         try (Connection connection = pool.getConnection()) {
-            PreparedStatement stm = connection.prepareStatement("INSERT INTO Item (description, unit_price, stock) VALUES (?,?,?)",
-                    Statement.RETURN_GENERATED_KEYS);
-            stm.setString(1, item.getDescription());
+            PreparedStatement stm = connection.prepareStatement("INSERT INTO Item (code, description, qty, unit_price) VALUES (?,?,?,?)");
+            stm.setString(1, item.getCode());
+            stm.setString(2, item.getDescription());
+            stm.setInt(3, item.getQty());
 
-            BigDecimal unitPrice = new BigDecimal(String.valueOf(item.getUnitPrice()));
-
-            stm.setBigDecimal(2, unitPrice);
-            stm.setInt(3, item.getStock());
+            BigDecimal unitPrice = new BigDecimal(String.valueOf(item.getUnitPrice())).setScale(2);
+            stm.setBigDecimal(4, unitPrice);
             stm.executeUpdate();
-            ResultSet generatedKeys = stm.getGeneratedKeys();
-            generatedKeys.next();
-            int code = generatedKeys.getInt(1);
-            item.setCode(code);
             return new ResponseEntity<>(item, HttpStatus.CREATED);
         } catch (SQLException e) {
             if (e.getSQLState().equals("23000")) {

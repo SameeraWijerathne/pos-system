@@ -9,22 +9,7 @@ const btnSave = $("#btn-save");
 
 tbodyElm.empty();
 
-function formatItemCode(code) {
-    return `I${code.toString().padStart(3, '0')}`;
-}
-
-function formatPrice(unitPrice) {
-    // let price = Big(unitPrice);
-    const nf = new Intl.NumberFormat('en-LK', {
-        style: 'currency',
-        currency: 'LKR',
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    });
-    return nf.format(unitPrice);
-}
-
-[txtDescription, txtUnitPrice, txtInitialStock].forEach(txtElm =>
+[txtCode, txtDescription, txtUnitPrice, txtInitialStock].forEach(txtElm =>
     $(txtElm).addClass('animate__animated'));
 
 btnSave.on('click', ()=> {
@@ -32,26 +17,27 @@ btnSave.on('click', ()=> {
        return false;
    }
 
+    const code = txtCode.val().trim();
     const description = txtDescription.val().trim();
     const unitPrice = Big(+txtUnitPrice.val().trim()).toFixed(2);
-    const stock = +txtInitialStock.val().trim();
+    const qty = +txtInitialStock.val().trim();
 
     let item = {
-        description, unitPrice, stock
+        code, description, qty, unitPrice
     }
 
     const xhr = new XMLHttpRequest();
 
     xhr.addEventListener("readystatechange", ()=> {
         if (xhr.readyState === 4) {
-            [txtDescription, txtUnitPrice, txtInitialStock, btnSave].forEach(elm => elm.removeAttr('disabled'));
+            [txtCode, txtDescription, txtUnitPrice, txtInitialStock, btnSave].forEach(elm => elm.removeAttr('disabled'));
             $("#loader").css('visibility', 'hidden');
 
             if (xhr.status === 201) {
                 item = JSON.parse(xhr.responseText);
                 getItems();
                 resetForm(true);
-                txtDescription.trigger('focus');
+                txtCode.trigger('focus');
                 showToast('success', 'Saved', 'Item has been saved successfully');
             } else {
                 const errorObj = JSON.parse(xhr.responseText);
@@ -68,12 +54,13 @@ btnSave.on('click', ()=> {
 
     xhr.send(JSON.stringify(item));
 
-    [txtDescription, txtUnitPrice, txtInitialStock, btnSave].forEach(elm => elm.attr('disabled', 'true'));
+    [txtCode, txtDescription, txtUnitPrice, txtInitialStock, btnSave].forEach(elm => elm.attr('disabled', 'true'));
     $("#loader").css('visibility', 'visible');
 
 });
 
 function validateData() {
+    const code = txtCode.val().trim();
     const description = txtDescription.val().trim();
     const unitPrice = txtUnitPrice.val().trim();
     const stock = txtInitialStock.val().trim();
@@ -99,6 +86,12 @@ function validateData() {
         valid = invalidate(txtDescription, "Invalid description");
     }
 
+    if (!code) {
+        valid = invalidate(txtCode, "Item code can't be empty");
+    } else if (!/^.[0-9]+$/.test(code)) {
+        valid = invalidate(txtCode, "Invalid item code");
+    }
+
     return valid;
 }
 
@@ -110,7 +103,7 @@ function invalidate(txt, message){
 }
 
 function resetForm(clearData) {
-    [txtDescription, txtUnitPrice, txtInitialStock].forEach(txt => {
+    [txtCode, txtDescription, txtUnitPrice, txtInitialStock].forEach(txt => {
         txt.removeClass("is-invalid animate__shakeX");
         if (clearData) txt.val('');
     });
@@ -118,8 +111,8 @@ function resetForm(clearData) {
 
 modalElm.on('show.bs.modal', () => {
     resetForm(true);
-    txtCode.parent().hide();
-    setTimeout(() => txtDescription.trigger('focus'), 500);
+    // txtCode.parent().hide();
+    setTimeout(() => txtCode.trigger('focus'), 500);
 });
 
 function showToast(toastType, header, message) {
@@ -153,10 +146,10 @@ function getItems() {
                 itemList.forEach(item => {
                     tbodyElm.append(`
                     <tr>
-                        <td class="text-center">${formatItemCode(item.code)}</td>
+                        <td class="text-center">${item.code}</td>
                         <td>${item.description}</td>
-                        <td class="d-none d-xl-table-cell">${item.stock}</td>
-                        <td class="price text-center">${item.unitPrice}</td>
+                        <td class="d-none d-xl-table-cell">${item.qty}</td>
+                        <td class="price text-center">${Big(item.unitPrice).toFixed(2)}</td>
                         <td>
                             <div class="actions d-flex gap-3 justify-content-center">
                                 <svg data-bs-toggle="tooltip" data-bs-title="Edit Item" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
@@ -226,7 +219,7 @@ function showProgress(xhr){
 
 tbodyElm.on('click', ".delete", (eventData)=> {
     /* XHR -> jQuery AJAX */
-    const code = +$(eventData.target).parents("tr").children("td:first-child").text().replace('I', '');
+    const code = $(eventData.target).parents("tr").children("td:first-child").text();
     const xhr = new XMLHttpRequest();
     const jqxhr = $.ajax(`http://localhost:8080/pos/items/${code}`, {
         method: 'DELETE',
