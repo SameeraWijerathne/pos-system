@@ -24,7 +24,7 @@ public class ItemController {
     @GetMapping("/{code}")
     public ResponseEntity<?> getItem(@PathVariable String code) {
         try (Connection connection = pool.getConnection()) {
-            PreparedStatement stm = connection.prepareStatement("SELECT * FROM Item WHERE code=?");
+            PreparedStatement stm = connection.prepareStatement("SELECT * FROM item WHERE code=?");
             stm.setString(1, code);
             ResultSet rst = stm.executeQuery();
             if (rst.next()) {
@@ -47,7 +47,7 @@ public class ItemController {
     @PatchMapping("/{code}")
     public ResponseEntity<?> updateItem(@PathVariable("code") String itemCode, @RequestBody ItemDTO item) {
         try (Connection connection = pool.getConnection()) {
-            PreparedStatement stm = connection.prepareStatement("UPDATE Item SET description=?, qty=?, unit_price=? WHERE code=?");
+            PreparedStatement stm = connection.prepareStatement("UPDATE item SET description=?, qty=?, unit_price=? WHERE code=?");
             stm.setString(1, item.getDescription());
             stm.setInt(2, item.getQty());
 
@@ -73,7 +73,7 @@ public class ItemController {
     @DeleteMapping("/{code}")
     public ResponseEntity<?> deleteItem(@PathVariable("code") String itemCode) {
         try (Connection connection = pool.getConnection()) {
-            PreparedStatement stm = connection.prepareStatement("DELETE FROM Item WHERE code=?");
+            PreparedStatement stm = connection.prepareStatement("DELETE FROM item WHERE code=?");
             stm.setString(1, itemCode);
             int affectedRows = stm.executeUpdate();
             if (affectedRows == 1) {
@@ -95,7 +95,7 @@ public class ItemController {
     public ResponseEntity<?> getItems(@RequestParam(value = "q", required = false) String query) {
         if (query == null) query = "";
         try (Connection connection = pool.getConnection()) {
-            PreparedStatement stm = connection.prepareStatement("SELECT * FROM Item WHERE code LIKE ? OR description LIKE ? OR qty LIKE ? OR unit_price LIKE ?");
+            PreparedStatement stm = connection.prepareStatement("SELECT * FROM item WHERE code LIKE ? OR description LIKE ? OR qty LIKE ? OR unit_price LIKE ?");
             query = "%" + query + "%";
             for (int i = 1; i <= 4; i++) {
                 stm.setString(i, query);
@@ -118,7 +118,7 @@ public class ItemController {
     @PostMapping
     public ResponseEntity<?> saveItem(@RequestBody ItemDTO item) {
         try (Connection connection = pool.getConnection()) {
-            PreparedStatement stm = connection.prepareStatement("INSERT INTO Item (code, description, qty, unit_price) VALUES (?,?,?,?)");
+            PreparedStatement stm = connection.prepareStatement("INSERT INTO item (code, description, qty, unit_price) VALUES (?,?,?,?)");
             stm.setString(1, item.getCode());
             stm.setString(2, item.getDescription());
             stm.setInt(3, item.getQty());

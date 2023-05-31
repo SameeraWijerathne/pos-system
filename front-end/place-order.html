@@ -11,7 +11,7 @@
     <script defer src="node_modules/jquery/dist/jquery.min.js"></script>
     <script defer src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script defer src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script defer src="js/main.js"></script>
+    <script defer type="module" src="js/main.js"></script>
     <script type="module" defer src="js/place-order.js"></script>
 </head>
 
@@ -198,7 +198,7 @@
             <span class="fw-bold" id="net-total">LKR 0.00</span>
         </div>
         <div class="d-flex justify-content-end">
-            <button class=" btn fw-bold btn-outline-primary fs-5 d-flex align-items-center gap-2">
+            <button class=" btn fw-bold btn-outline-primary fs-5 d-flex align-items-center gap-2" id="btn-place-order">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-basket2"
                      viewBox="0 0 16 16">
                     <path d="M4 10a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0v-2zm3 0a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0v-2zm3 0a1 1 0 1 1 2 0v2a1 1 0 0 1-2 0v-2z"/>
@@ -209,5 +209,16 @@
         </div>
     </section>
 </main>
+<div id="toast" class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
+    <div id="liveToast" class="toast" data-bs-autohide="true" data-bs-delay="1000" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+        </div>
+    </div>
+</div>
+<div id="progress-bar"></div>
 </body>
 </html>

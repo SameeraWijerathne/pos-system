@@ -28,6 +28,13 @@ export class Order {
         this.#updateOrder();
     }
 
+    clear() {
+        this.customer = null;
+        this.itemList = [];
+        this.#updateOrder();
+        this.subscriber(this.getTotal());
+    }
+
     deleteItem(code){
         const index = this.itemList.indexOf(this.getItem(code));
         this.itemList.splice(index, 1);

@@ -48,8 +48,8 @@ public class OrderController {
             for (ItemDTO orderItem : order.getItemList()){
                 stmOrderItem.setInt(1, orderId);
                 stmOrderItem.setString(2, orderItem.getCode());
-                stmOrderItem.setInt(3, orderItem.getQty());
-                stmOrderItem.setBigDecimal(4, orderItem.getUnitPrice());
+                stmOrderItem.setBigDecimal(3, orderItem.getUnitPrice());
+                stmOrderItem.setInt(4, orderItem.getQty());
                 stmOrderItem.executeUpdate();
 
                 stmUpdateStock.setInt(1, orderItem.getQty());

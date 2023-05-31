@@ -70,7 +70,7 @@ public class CustomerController {
     public ResponseEntity<?> getCustomers(@RequestParam(value = "q", required = false) String query){
         if (query == null) query = "";
         try (Connection connection = pool.getConnection()) {
-            PreparedStatement stm = connection.prepareStatement("SELECT * FROM Customer WHERE id LIKE ? OR name LIKE ? OR address LIKE ? OR contact LIKE ?");
+            PreparedStatement stm = connection.prepareStatement("SELECT * FROM customer WHERE id LIKE ? OR name LIKE ? OR address LIKE ? OR contact LIKE ?");
             query = "%" + query + "%";
             for (int i = 1; i <= 4; i++) {
                 stm.setString(i, query);
@@ -95,7 +95,7 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<?> saveCustomer(@RequestBody CustomerDTO customer){
         try (Connection connection = pool.getConnection()) {
-            PreparedStatement stm = connection.prepareStatement("INSERT INTO Customer (name, address, contact) VALUES (?,?,?)",
+            PreparedStatement stm = connection.prepareStatement("INSERT INTO customer (name, address, contact) VALUES (?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             stm.setString(1, customer.getName());
             stm.setString(2, customer.getAddress());
