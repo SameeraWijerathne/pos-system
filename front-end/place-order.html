@@ -93,10 +93,10 @@
                 <label for="txt-customer">Customer ID / Contact Number</label>
             </div>
             <div class="d-flex p-2 justify-content-between">
-                <span class="walk-in" id="customer-name">Walk-in Customer</span>
+                <span id="customer-name">Walk-in Customer</span>
                 <svg data-bs-toggle="tooltip" data-bs-title="Clear Customer" id="btn-clear-customer"
                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                     class="bi bi-trash disabled"
+                     class="bi bi-trash"
                      viewBox="0 0 16 16">
                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
                     <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
@@ -158,36 +158,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <div class="fw-bold">I001</div>
-                                <div>Logitech Keyboard</div>
-                            </div>
-                            <svg data-bs-toggle="tooltip" data-bs-title="Remove Item" xmlns="http://www.w3.org/2000/svg"
-                                 width="32" height="32" fill="currentColor" class="bi bi-trash delete"
-                                 viewBox="0 0 16 16">
-                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
-                            </svg>
-                        </div>
-                    </td>
-                    <td>
-                        5
-                    </td>
-                    <td>
-                        1,250.00
-                    </td>
-                    <td>
-                        6,250.00
-                    </td>
-                </tr>
                 </tbody>
                 <tfoot>
                 <tr>
                     <td colspan="4" class="text-center">
-                        No Items has been placed in the cart yet !
+                        No Items have been placed in the cart yet !
                     </td>
                 </tr>
                 </tfoot>
@@ -195,10 +170,10 @@
         </div>
         <div class="fs-4 justify-content-between d-flex mt-1 p-2">
             <span>Net Total</span>
-            <span class="fw-bold" id="net-total">LKR 0.00</span>
+            <span id="net-total" class="fw-bold">LKR 0.00</span>
         </div>
         <div class="d-flex justify-content-end">
-            <button class=" btn fw-bold btn-outline-primary fs-5 d-flex align-items-center gap-2" id="btn-place-order">
+            <button id="btn-place-order" class=" btn fw-bold btn-outline-primary fs-5 d-flex align-items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-basket2"
                      viewBox="0 0 16 16">
                     <path d="M4 10a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0v-2zm3 0a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0v-2zm3 0a1 1 0 1 1 2 0v2a1 1 0 0 1-2 0v-2z"/>

@@ -4,6 +4,7 @@ import {LocalDateTime, DateTimeFormatter} from "../node_modules/@js-joda/core/di
 import {Big} from "../node_modules/big.js/big.mjs";
 import {Order} from "./order.js";
 import {showProgress, showToast} from "./main.js";
+import {getBillDesignHTML} from "./bill-design.js";
 
 /* Module Level Variables, Constants */
 const REST_API_BASE_URL = 'http://localhost:8080/pos';
@@ -127,6 +128,11 @@ function placeOrder() {
     });
     jqxhr.always(() => btnPlaceOrder.removeAttr('disabled'));
 }
+
+function printBill(orderId) {
+    const billWindow = open("", `_blank`, "popup=true,width=200");
+    billWindow.document.write(getBillDesignHTML(order, orderId));
+}
 function updateOrderDetails() {
     const id = order.customer?.id.toString().padStart(3, '0');
     txtCustomer.val(id ? 'C' + id : '');
@@ -209,7 +215,7 @@ function findItem() {
     });
 }
 
-function formatPrice(price){
+export function formatPrice(price){
     const nf = Intl.NumberFormat('en-Lk', {
         style: 'currency',
         currency: 'LKR',
@@ -219,7 +225,7 @@ function formatPrice(price){
     return nf.format(price);
 }
 
-function formatNumber(number){
+export function formatNumber(number){
     const nf = Intl.NumberFormat('en-Lk', {
         style: 'decimal',
         minimumFractionDigits: 2,

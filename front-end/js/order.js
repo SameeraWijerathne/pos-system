@@ -52,7 +52,7 @@ export class Order {
     getTotal(){
         let total = new Big(0);
         this.itemList.forEach(item => {
-            total.plus(Big(item.qty).times(Big(item.unitPrice)));
+            total = total.plus(Big(item.qty).times(Big(item.unitPrice)));
         });
         return total;
     }
