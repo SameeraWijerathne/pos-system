@@ -2,6 +2,7 @@ package lk.ijse.dep10.pos;
 
 import lk.ijse.dep10.pos.api.CustomerController;
 import lk.ijse.dep10.pos.api.ItemController;
+import lk.ijse.dep10.pos.api.OrderController;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,4 +18,7 @@ public class WebAppConfig {
 
     @Bean
     public ItemController itemController(){ return new ItemController();}
+
+    @Bean
+    public OrderController orderController(){return new OrderController();}
 }

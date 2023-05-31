@@ -24,7 +24,7 @@ public class CustomerController {
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateCustomer(@PathVariable("id") int customerId, @RequestBody CustomerDTO customer) {
         try (Connection connection = pool.getConnection()) {
-            PreparedStatement stm = connection.prepareStatement("UPDATE Customer SET  name=?, address=?, contact=? WHERE id=?");
+            PreparedStatement stm = connection.prepareStatement("UPDATE customer SET  name=?, address=?, contact=? WHERE id=?");
             stm.setString(1, customer.getName());
             stm.setString(2, customer.getName());
             stm.setString(3, customer.getContact());
@@ -47,7 +47,7 @@ public class CustomerController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCustomer(@PathVariable("id") String customerId) {
         try (Connection connection = pool.getConnection()) {
-            PreparedStatement stm = connection.prepareStatement("DELETE FROM Customer WHERE id=?");
+            PreparedStatement stm = connection.prepareStatement("DELETE FROM customer WHERE id=?");
             stm.setString(1, customerId);
             int affectedRows = stm.executeUpdate();
             if (affectedRows == 1) {
