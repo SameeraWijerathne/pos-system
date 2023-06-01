@@ -2,7 +2,7 @@
 import {LocalDateTime, DateTimeFormatter} from "../node_modules/@js-joda/core/dist/js-joda.esm.js";
 // import Big from "big.js";
 import {Big} from "../node_modules/big.js/big.mjs";
-import {Order} from "./order.js";
+import {Cart} from "./cart.js";
 import {showProgress, showToast} from "./main.js";
 import {getBillDesignHTML} from "./bill-design.js";
 
@@ -22,7 +22,7 @@ const btnPlaceOrder = $("#btn-place-order");
 let customer = null;
 let item = null;
 let socket = null;
-let order = new Order((total) => netTotalElm.text(formatPrice(total)));
+let cart = new Cart((total) => netTotalElm.text(formatPrice(total)));
 
 /* Initialization Logic */
 setDateTime();
@@ -41,7 +41,7 @@ txtCustomer.on('blur', () => {
 
 $("#btn-clear-customer").on('click', ()=> {
     customer = null;
-    order.setCustomer(customer);
+    cart.setCustomer(customer);
     $("#customer-name").text("Walk-in Customer");
     txtCustomer.val("");
     txtCustomer.removeClass("is-invalid");
@@ -49,7 +49,7 @@ $("#btn-clear-customer").on('click', ()=> {
 });
 socket.addEventListener('message', (eventData)=> {
     customer = JSON.parse(eventData.data);
-    order.setCustomer(customer);
+    cart.setCustomer(customer);
     customerNameElm.text(customer.name);
 });
 
@@ -66,16 +66,16 @@ frmOrder.on('submit', (eventData)=> {
         return;
     }
     item.qty = +txtQty.val();
-    if (order.containsItem(item.code)){
-        order.updateItemQty(item.code, order.getItem(item.code).qty + item.qty);
+    if (cart.containsItem(item.code)){
+        cart.updateItemQty(item.code, cart.getItem(item.code).qty + item.qty);
         const codeElm = Array.from(tbodyElm.find("tr td:first-child .code")).find(codeElm => $(codeElm).text() === item.code);
         const qtyElm = $(codeElm).parents("tr").find("td:nth-child(2)");
         const priceElm = $(codeElm).parents("tr").find("td:nth-child(4)");
-        qtyElm.text(order.getItem(item.code).qty);
-        priceElm.text(formatNumber(Big(order.getItem(item.code).qty).times(item.unitPrice)));
+        qtyElm.text(cart.getItem(item.code).qty);
+        priceElm.text(formatNumber(Big(cart.getItem(item.code).qty).times(item.unitPrice)));
     }else{
         addItemToCart(item);
-        order.addItem(item);
+        cart.addItem(item);
     }
     $("#item-info").addClass("d-none");
     frmOrder.addClass("d-none");
@@ -87,9 +87,9 @@ frmOrder.on('submit', (eventData)=> {
 tbodyElm.on('click', 'svg.delete', (eventData)=> {
     const trElm = $(eventData.target).parents("tr");
     const code = +trElm.find("td:first-child .code").text();
-    order.deleteItem(code);
+    cart.deleteItem(code);
     trElm.remove();
-    if (!order.itemList.length) {
+    if (!cart.itemList.length) {
         tFootElm.show();
     }
 });
@@ -98,16 +98,16 @@ btnPlaceOrder.on('click', () => placeOrder());
 
 /* Functions */
 function placeOrder() {
-    if (!order.itemList.length) return;
+    if (!cart.itemList.length) return;
 
-    order.dateTime = orderDatetime.text();
+    cart.dateTime = orderDatetime.text();
     btnPlaceOrder.attr('disabled', true);
     const xhr = new XMLHttpRequest();
 
     const jqxhr = $.ajax(`${REST_API_BASE_URL}/orders`, {
         method: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify(order),
+        data: JSON.stringify(cart),
         xhr: ()=> xhr
     });
 
@@ -115,7 +115,7 @@ function placeOrder() {
 
     jqxhr.done((orderId) => {
         printBill(orderId);
-        order.clear();
+        cart.clear();
         $("#btn-clear-customer").trigger('click');
         txtCode.val("");
         txtCode.trigger('input');
@@ -131,13 +131,13 @@ function placeOrder() {
 
 function printBill(orderId) {
     const billWindow = open("", `_blank`, "popup=true,width=200");
-    billWindow.document.write(getBillDesignHTML(order, orderId));
+    billWindow.document.write(getBillDesignHTML(cart, orderId));
 }
 function updateOrderDetails() {
-    const id = order.customer?.id.toString().padStart(3, '0');
+    const id = cart.customer?.id.toString().padStart(3, '0');
     txtCustomer.val(id ? 'C' + id : '');
-    customerNameElm.text(order.customer?.name);
-    order.itemList.forEach(item => addItemToCart(item));
+    customerNameElm.text(cart.customer?.name);
+    cart.itemList.forEach(item => addItemToCart(item));
 }
 function addItemToCart(item){
     tFootElm.hide();
@@ -191,8 +191,8 @@ function findItem() {
     jqxhr.done((data)=> {
         item = data;
         description.text(item.description);
-        if (order.containsItem(item.code)){
-            item.qty -=order.getItem(code).qty;
+        if (cart.containsItem(item.code)){
+            item.qty -=cart.getItem(code).qty;
         }
         stock.text(item.qty ? `In Stock: ${item.qty}` : 'Out of Stock');
         !item.qty ? stock.addClass("out-of-stock") : stock.removeClass("out-of-stock");
@@ -244,7 +244,7 @@ function findCustomer(){
     if (!idOrContact) return;
     customer = null;
     customerNameElm.text("Walk-in Customer");
-    order.setCustomer(null);
+    cart.setCustomer(null);
 
     if (socket.readyState === socket.OPEN) socket.send(idOrContact);
 }
