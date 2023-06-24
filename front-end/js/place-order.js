@@ -213,14 +213,13 @@ function findItem() {
     });
 }
 
-export function formatPrice(price){
-    const nf = Intl.NumberFormat('en-Lk', {
+export function formatPrice(price) {
+    return new Intl.NumberFormat('en-LK', {
         style: 'currency',
         currency: 'LKR',
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
-    });
-    return nf.format(price);
+    }).format(price);
 }
 
 export function formatNumber(number){

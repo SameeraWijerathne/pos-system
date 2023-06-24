@@ -5,8 +5,8 @@ export class Cart {
     itemList = [];
     subscriber;
     constructor(subscriber) {
+        this.subscriber = subscriber;
         if (localStorage.getItem("order")) {
-            this.subscriber = subscriber;
             const order = JSON.parse(localStorage.getItem("order"));
             this.customer = order.customer;
             this.itemList = order.itemList;
@@ -20,12 +20,14 @@ export class Cart {
     addItem(item){
         this.itemList.push(item);
         this.#updateOrder();
+        this.subscriber(this.getTotal());
     }
 
     updateItemQty(code, qty) {
         if (!this.containsItem(code)) return;
         this.getItem(code).qty = qty;
         this.#updateOrder();
+        this.subscriber(this.getTotal());
     }
 
     clear() {
@@ -39,6 +41,7 @@ export class Cart {
         const index = this.itemList.indexOf(this.getItem(code));
         this.itemList.splice(index, 1);
         this.#updateOrder();
+        this.subscriber(this.getTotal());
     }
 
     getItem(code){
