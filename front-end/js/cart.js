@@ -53,7 +53,7 @@ export class Cart {
         let total = new Big(0);
         this.itemList.forEach(item => {
             total = total.plus(Big(item.qty).times(Big(item.unitPrice)));
-        });
+        })
         return total;
     }
 

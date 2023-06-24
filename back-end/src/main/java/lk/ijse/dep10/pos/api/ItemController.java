@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/items")
+@RequestMapping("/api/v1/items")
 @CrossOrigin
 public class ItemController {
 

@@ -1,7 +1,7 @@
 import {Big} from '../node_modules/big.js/big.mjs';
 import {formatNumber, formatPrice} from "./place-order.js";
 
-export function getBillDesignHTML(order, orderId) {
+export function getBillDesignHTML(cart, orderId) {
     return `<!doctype html>
 <html lang="en">
 <head>
@@ -26,8 +26,8 @@ export function getBillDesignHTML(order, orderId) {
     </div>
     <div id="bill-details" class="p-2 border-bottom text-center">
         <div><span class="fw-bold">Order ID:</span> OD${orderId.toString().padStart(3, '0')}</div>
-        <div><span class="fw-bold">Customer:</span> ${order.customer ? 'C' + order.customer.id.toString().padStart(3, '0') + " - " + order.customer.name : 'Walk-in Customer'}</div>
-        <div><span class="fw-bold">Order Date:</span> ${order.dateTime}</div>
+        <div><span class="fw-bold">Customer:</span> ${cart.customer ? 'C' + cart.customer.id.toString().padStart(3, '0') + " - " + cart.customer.name : 'Walk-in Customer'}</div>
+        <div><span class="fw-bold">Order Date:</span> ${cart.dateTime}</div>
     </div>
     <div id="bill-items">
         <table>
@@ -41,12 +41,12 @@ export function getBillDesignHTML(order, orderId) {
                 </tr>
             </thead>
             <tbody>
-            ${generateRows(order)}
+            ${generateRows(cart)}
             </tbody>
         </table>
         <h6 class="d-flex justify-content-between p-2 border-bottom">
             <span>Net Total</span>
-            <span>${formatPrice(order.getTotal())}</span>
+            <span>${formatPrice(cart.getTotal())}</span>
         </h6>
     </div>
     <div id="bill-footer" class="text-center">

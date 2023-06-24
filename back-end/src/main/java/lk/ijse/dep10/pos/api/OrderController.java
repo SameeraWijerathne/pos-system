@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.*;
 import java.util.List;
 
-@RequestMapping("/orders")
+@RequestMapping("/api/v1/orders")
 @RestController
 @CrossOrigin
 public class OrderController {

@@ -3,12 +3,10 @@ import {LocalDateTime, DateTimeFormatter} from "../node_modules/@js-joda/core/di
 // import Big from "big.js";
 import {Big} from "../node_modules/big.js/big.mjs";
 import {Cart} from "./cart.js";
-import {showProgress, showToast} from "./main.js";
+import {REST_API_BASE_URL, WS_API_BASE_URL, showProgress, showToast} from "./main.js";
 import {getBillDesignHTML} from "./bill-design.js";
 
 /* Module Level Variables, Constants */
-const REST_API_BASE_URL = 'http://localhost:8080/pos';
-const WS_API_BASE_URL = 'ws://localhost:8080/pos';
 const orderDatetime = $("#order-date-time");
 const tbodyElm = $("#tbl-order tbody");
 const txtCustomer = $("#txt-customer");
@@ -22,7 +20,7 @@ const btnPlaceOrder = $("#btn-place-order");
 let customer = null;
 let item = null;
 let socket = null;
-let cart = new Cart((total) => netTotalElm.text(formatPrice(total)));
+let cart = new Cart((total)=> netTotalElm.text(formatPrice(total)));
 
 /* Initialization Logic */
 setDateTime();

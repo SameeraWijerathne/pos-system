@@ -1,4 +1,7 @@
+import {REST_API_BASE_URL} from "./main.js";
+// import Big from "big.js";
 import Big from "../node_modules/big.js/big.mjs";
+
 const tbodyElm = $("#tbl-items tbody");
 const modalElm = $("#new-item-modal");
 const txtCode = $("#txt-code");
@@ -46,7 +49,7 @@ btnSave.on('click', ()=> {
         }
     });
 
-    xhr.open('POST', 'http://localhost:8080/pos/items', true);
+    xhr.open('POST', `${REST_API_BASE_URL}/items`, true);
 
     xhr.setRequestHeader('Content-Type', 'application/json');
 
@@ -190,7 +193,7 @@ function getItems() {
     const searchText = $("#txt-search").val().trim();
     const query = (searchText) ? `?q=${searchText}` : "";
 
-    xhr.open('GET', 'http://localhost:8080/pos/items' + query, true);
+    xhr.open('GET', `${REST_API_BASE_URL}/items` + query, true);
 
     const tfoot = $("tbl-items tfoot tr td:first-child");
     xhr.addEventListener('loadstart', () => tfoot.text("Please wait!"));
@@ -221,7 +224,7 @@ tbodyElm.on('click', ".delete", (eventData)=> {
     /* XHR -> jQuery AJAX */
     const code = $(eventData.target).parents("tr").children("td:first-child").text();
     const xhr = new XMLHttpRequest();
-    const jqxhr = $.ajax(`http://localhost:8080/pos/items/${code}`, {
+    const jqxhr = $.ajax(`${REST_API_BASE_URL}/items/${code}`, {
         method: 'DELETE',
         xhr: ()=> xhr
     });

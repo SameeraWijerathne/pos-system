@@ -1,4 +1,4 @@
-import {showProgress, showToast} from "./main.js";
+import {REST_API_BASE_URL, showProgress, showToast} from "./main.js";
 
 const tbodyElm = $("#tbl-customers tbody");
 const modalElm = $("#new-customer-modal");
@@ -31,8 +31,6 @@ btnSave.on('click', () => {
         name, contact, address
     };
 
-    /* Todo: Send a request to the server to save the customer */
-
     /* 1. Create xhr object */
     const xhr = new XMLHttpRequest();
 
@@ -55,7 +53,7 @@ btnSave.on('click', () => {
     });
 
     /* 3. Let's open the request */
-    xhr.open('POST', 'http://localhost:8080/pos/customers', true);
+    xhr.open('POST', `${REST_API_BASE_URL}/customers`, true);
 
     /* 4. Let's set some request headers */
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -173,7 +171,7 @@ function getCustomers() {
 
     const searchText = $("#txt-search").val().trim();
     const query = (searchText) ? `?q=${searchText}` : "";
-    xhr.open('GET', 'http://localhost:8080/pos/customers' + query, true);
+    xhr.open('GET', `${REST_API_BASE_URL}/customers` + query, true);
 
     const tfoot = $("#tbl-customers tfoot tr td:first-child");
     xhr.addEventListener('loadstart', ()=> tfoot.text("Please wait!"))
@@ -189,7 +187,7 @@ tbodyElm.on('click', ".delete", (eventData) => {
     /* XHR -> jQuery AJAX*/
     const id = +$(eventData.target).parents("tr").children("td:first-child").text().replace('C', '');
     const xhr = new XMLHttpRequest();
-    const jqxhr = $.ajax(`http://localhost:8080/pos/customers/${id}`, {
+    const jqxhr = $.ajax(`${REST_API_BASE_URL}/customers/${id}`, {
         method: 'DELETE',
         xhr: ()=> xhr // This is a hack to obtain the xhr that is used by jQuery
     });
