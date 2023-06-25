@@ -6,6 +6,7 @@ import lk.ijse.dep10.pos.api.ItemController;
 import lk.ijse.dep10.pos.api.OrderController;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -22,6 +23,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableWebMvc
 @EnableSwagger2
+@ComponentScan
 public class WebAppConfig implements WebMvcConfigurer {
     /* Swagger Configuration Bean */
     @Bean
@@ -54,19 +56,5 @@ public class WebAppConfig implements WebMvcConfigurer {
     public MethodValidationPostProcessor methodValidationPostProcessor(){
         return new MethodValidationPostProcessor();
     }
-    @Bean
-    public CustomerController customerController(){
-        return new CustomerController();
-    }
 
-    @Bean
-    public ItemController itemController(){ return new ItemController();}
-
-    @Bean
-    public OrderController orderController(){return new OrderController();}
-
-    @Bean
-    public GlobalExceptionHandler globalExceptionHandler(){
-        return new GlobalExceptionHandler();
-    }
 }

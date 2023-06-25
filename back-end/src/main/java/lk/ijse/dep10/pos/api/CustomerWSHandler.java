@@ -1,8 +1,6 @@
 package lk.ijse.dep10.pos.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lk.ijse.dep10.pos.business.BOFactory;
-import lk.ijse.dep10.pos.business.BOType;
 import lk.ijse.dep10.pos.business.custom.CustomerBO;
 import lk.ijse.dep10.pos.business.exception.BusinessException;
 import lk.ijse.dep10.pos.business.exception.BusinessExceptionType;
@@ -13,24 +11,16 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import javax.xml.transform.Result;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
-
 public class CustomerWSHandler extends TextWebSocketHandler {
 
     @Autowired
-    private BasicDataSource pool;
+    private CustomerBO customerBO;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        CustomerBO customerBO = BOFactory.getInstance().getBO(BOType.CUSTOMER, pool);
         try {
             CustomerDTO customer = customerBO
                     .findCustomerByIdOrContact(message.getPayload().strip());
