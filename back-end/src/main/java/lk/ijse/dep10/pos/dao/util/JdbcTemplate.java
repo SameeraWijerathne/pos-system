@@ -54,6 +54,7 @@ public class JdbcTemplate {
         generatedKeys.next();
         int key = generatedKeys.getInt(1);
         kh.getKeys().put("1", key);
+        int[] myArr = new int[10];
         return affectedRows;
     }
 }
