@@ -9,7 +9,6 @@ import lk.ijse.dep10.pos.dao.DAOType;
 import lk.ijse.dep10.pos.dao.custom.ItemDAO;
 import lk.ijse.dep10.pos.dao.custom.OrderDetailDAO;
 import lk.ijse.dep10.pos.dto.ItemDTO;
-import lk.ijse.dep10.pos.entity.Item;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -28,14 +27,14 @@ public class ItemBOImpl implements ItemBO {
     }
 
     @Override
-    public Item saveItem(ItemDTO itemDTO) throws Exception {
+    public ItemDTO saveItem(ItemDTO itemDTO) throws Exception {
         try (Connection connection = dataSource.getConnection()) {
             itemDAO.setConnection(connection);
 
             if (itemDAO.existsById(itemDTO.getCode())) throw new BusinessException(BusinessExceptionType.DUPLICATE_RECORD,
                     "Save failed: Item code: " + itemDTO.getCode() + " already exists");
 
-            return itemDAO.save(transformer.toItemEntity(itemDTO));
+            return transformer.fromItemEntity(itemDAO.save(transformer.toItemEntity(itemDTO)));
         }
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ItemBO extends SuperBO {
 
-    Item saveItem(ItemDTO itemDTO) throws Exception;
+    ItemDTO saveItem(ItemDTO itemDTO) throws Exception;
 
     void updateItem(ItemDTO itemDTO) throws  Exception;
 
