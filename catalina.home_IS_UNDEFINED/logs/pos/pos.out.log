@@ -1,0 +1,112 @@
+2023-06-26 00:06:25,698 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated... 
+2023-06-26 00:06:25,764 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed. 
+2023-06-26 21:07:43,756 [main] INFO  lk.ijse.dep10.pos.AppInitializer - Starting AppInitializer using Java 11.0.16.1 on sameera with PID 15716 (/home/sameera/Documents/dep-10/pos-system/back-end/target/classes started by sameera in /home/sameera/Documents/dep-10/pos-system) 
+2023-06-26 21:07:43,763 [main] DEBUG lk.ijse.dep10.pos.AppInitializer - Running with Spring Boot v2.7.13, Spring v5.3.28 
+2023-06-26 21:07:43,764 [main] INFO  lk.ijse.dep10.pos.AppInitializer - No active profile set, falling back to 1 default profile: "default" 
+2023-06-26 21:07:43,925 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final 
+2023-06-26 21:07:46,482 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http) 
+2023-06-26 21:07:46,490 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2023-06-26 21:07:46,492 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2023-06-26 21:07:46,492 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.76] 
+2023-06-26 21:07:46,582 [main] INFO  o.a.c.c.C.[.[localhost].[/pos] - Initializing Spring embedded WebApplicationContext 
+2023-06-26 21:07:46,582 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2706 ms 
+2023-06-26 21:07:47,750 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2023-06-26 21:07:48,060 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2023-06-26 21:07:49,111 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2023-06-26 21:07:49,134 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/pos' 
+2023-06-26 21:07:49,155 [main] INFO  lk.ijse.dep10.pos.AppInitializer - Started AppInitializer in 6.369 seconds (JVM running for 8.134) 
+2023-06-26 21:08:34,382 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[localhost].[/pos] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2023-06-26 21:08:34,382 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2023-06-26 21:08:34,384 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms 
+2023-06-26 21:20:44,098 [http-nio-8080-exec-2] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL query 
+2023-06-26 21:20:44,099 [http-nio-8080-exec-2] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL statement [SELECT * FROM item WHERE code LIKE ? OR description LIKE ?] 
+2023-06-26 21:20:49,141 [http-nio-8080-exec-3] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL query 
+2023-06-26 21:20:49,142 [http-nio-8080-exec-3] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL statement [SELECT * FROM customer WHERE id LIKE ? OR name LIKE ? OR address LIKE ? OR contact LIKE ?] 
+2023-06-26 21:40:45,144 [http-nio-8080-exec-5] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL query 
+2023-06-26 21:40:45,145 [http-nio-8080-exec-5] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL statement [SELECT * FROM customer WHERE id LIKE ? OR name LIKE ? OR address LIKE ? OR contact LIKE ?] 
+2023-06-26 21:41:54,279 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated... 
+2023-06-26 21:41:54,314 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed. 
+2023-06-26 21:42:03,422 [main] INFO  lk.ijse.dep10.pos.AppInitializer - Starting AppInitializer using Java 11.0.16.1 on sameera with PID 17244 (/home/sameera/Documents/dep-10/pos-system/back-end/target/classes started by sameera in /home/sameera/Documents/dep-10/pos-system) 
+2023-06-26 21:42:03,422 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final 
+2023-06-26 21:42:03,425 [main] DEBUG lk.ijse.dep10.pos.AppInitializer - Running with Spring Boot v2.7.13, Spring v5.3.28 
+2023-06-26 21:42:03,426 [main] INFO  lk.ijse.dep10.pos.AppInitializer - No active profile set, falling back to 1 default profile: "default" 
+2023-06-26 21:42:05,731 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http) 
+2023-06-26 21:42:05,739 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2023-06-26 21:42:05,740 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2023-06-26 21:42:05,740 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.76] 
+2023-06-26 21:42:05,854 [main] INFO  o.a.c.c.C.[.[localhost].[/pos] - Initializing Spring embedded WebApplicationContext 
+2023-06-26 21:42:05,855 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2370 ms 
+2023-06-26 21:42:06,466 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2023-06-26 21:42:07,931 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2023-06-26 21:42:08,573 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2023-06-26 21:42:08,586 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/pos' 
+2023-06-26 21:42:08,602 [main] INFO  lk.ijse.dep10.pos.AppInitializer - Started AppInitializer in 5.728 seconds (JVM running for 7.851) 
+2023-06-26 21:42:14,878 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[localhost].[/pos] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2023-06-26 21:42:14,879 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2023-06-26 21:42:14,880 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms 
+2023-06-26 21:42:24,251 [http-nio-8080-exec-4] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL query 
+2023-06-26 21:42:24,252 [http-nio-8080-exec-4] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL statement [SELECT * FROM customer WHERE id=? OR contact=?] 
+2023-06-26 21:42:24,400 [http-nio-8080-exec-6] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL query 
+2023-06-26 21:42:24,405 [http-nio-8080-exec-6] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL statement [SELECT * FROM customer WHERE id=? OR contact=?] 
+2023-06-26 21:42:24,664 [http-nio-8080-exec-5] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL query 
+2023-06-26 21:42:24,665 [http-nio-8080-exec-5] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL statement [SELECT * FROM customer WHERE id=? OR contact=?] 
+2023-06-26 22:50:31,668 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated... 
+2023-06-26 22:50:31,694 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed. 
+2023-06-26 22:50:44,895 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final 
+2023-06-26 22:50:44,895 [main] INFO  lk.ijse.dep10.pos.AppInitializer - Starting AppInitializer using Java 11.0.16.1 on sameera with PID 18203 (/home/sameera/Documents/dep-10/pos-system/back-end/target/classes started by sameera in /home/sameera/Documents/dep-10/pos-system) 
+2023-06-26 22:50:44,899 [main] DEBUG lk.ijse.dep10.pos.AppInitializer - Running with Spring Boot v2.7.13, Spring v5.3.28 
+2023-06-26 22:50:44,902 [main] INFO  lk.ijse.dep10.pos.AppInitializer - No active profile set, falling back to 1 default profile: "default" 
+2023-06-26 22:50:46,677 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http) 
+2023-06-26 22:50:46,687 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2023-06-26 22:50:46,689 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2023-06-26 22:50:46,689 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.76] 
+2023-06-26 22:50:46,946 [main] INFO  o.a.c.c.C.[.[localhost].[/pos] - Initializing Spring embedded WebApplicationContext 
+2023-06-26 22:50:46,947 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1992 ms 
+2023-06-26 22:50:47,418 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2023-06-26 22:50:47,692 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2023-06-26 22:50:48,463 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2023-06-26 22:50:48,482 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/pos' 
+2023-06-26 22:50:48,497 [main] INFO  lk.ijse.dep10.pos.AppInitializer - Started AppInitializer in 4.336 seconds (JVM running for 5.724) 
+2023-06-26 22:51:14,415 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[localhost].[/pos] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2023-06-26 22:51:14,415 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2023-06-26 22:51:14,417 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms 
+2023-06-26 22:51:31,903 [http-nio-8080-exec-3] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL query 
+2023-06-26 22:51:31,908 [http-nio-8080-exec-3] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL statement [SELECT * FROM item WHERE code LIKE ? OR description LIKE ?] 
+2023-06-26 22:51:34,816 [http-nio-8080-exec-4] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL query 
+2023-06-26 22:51:34,817 [http-nio-8080-exec-4] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL statement [SELECT * FROM customer WHERE id LIKE ? OR name LIKE ? OR address LIKE ? OR contact LIKE ?] 
+2023-06-26 22:51:40,042 [http-nio-8080-exec-5] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL query 
+2023-06-26 22:51:40,043 [http-nio-8080-exec-5] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL statement [SELECT * FROM item WHERE code LIKE ? OR description LIKE ?] 
+2023-06-26 22:53:05,009 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated... 
+2023-06-26 22:53:05,037 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed. 
+2023-06-26 22:53:13,356 [main] INFO  lk.ijse.dep10.pos.AppInitializer - Starting AppInitializer using Java 11.0.16.1 on sameera with PID 18361 (/home/sameera/Documents/dep-10/pos-system/back-end/target/classes started by sameera in /home/sameera/Documents/dep-10/pos-system) 
+2023-06-26 22:53:13,367 [main] DEBUG lk.ijse.dep10.pos.AppInitializer - Running with Spring Boot v2.7.13, Spring v5.3.28 
+2023-06-26 22:53:13,379 [main] INFO  lk.ijse.dep10.pos.AppInitializer - No active profile set, falling back to 1 default profile: "default" 
+2023-06-26 22:53:13,416 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final 
+2023-06-26 22:53:15,332 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http) 
+2023-06-26 22:53:15,344 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"] 
+2023-06-26 22:53:15,347 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+2023-06-26 22:53:15,348 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.76] 
+2023-06-26 22:53:15,699 [main] INFO  o.a.c.c.C.[.[localhost].[/pos] - Initializing Spring embedded WebApplicationContext 
+2023-06-26 22:53:15,699 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2101 ms 
+2023-06-26 22:53:16,180 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+2023-06-26 22:53:16,588 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+2023-06-26 22:53:17,352 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"] 
+2023-06-26 22:53:17,365 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/pos' 
+2023-06-26 22:53:17,381 [main] INFO  lk.ijse.dep10.pos.AppInitializer - Started AppInitializer in 4.701 seconds (JVM running for 5.872) 
+2023-06-26 22:53:36,421 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[localhost].[/pos] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2023-06-26 22:53:36,424 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+2023-06-26 22:53:36,428 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms 
+2023-06-26 22:53:36,653 [http-nio-8080-exec-1] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL query 
+2023-06-26 22:53:36,656 [http-nio-8080-exec-1] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL statement [SELECT * FROM item WHERE code LIKE ? OR description LIKE ?] 
+2023-06-26 22:53:38,998 [http-nio-8080-exec-3] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL query 
+2023-06-26 22:53:38,999 [http-nio-8080-exec-3] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL statement [SELECT * FROM customer WHERE id LIKE ? OR name LIKE ? OR address LIKE ? OR contact LIKE ?] 
+2023-06-26 22:53:46,205 [http-nio-8080-exec-4] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL query 
+2023-06-26 22:53:46,206 [http-nio-8080-exec-4] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL statement [SELECT * FROM customer WHERE id=? OR contact=?] 
+2023-06-26 22:53:46,351 [http-nio-8080-exec-5] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL query 
+2023-06-26 22:53:46,351 [http-nio-8080-exec-5] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL statement [SELECT * FROM customer WHERE id=? OR contact=?] 
+2023-06-26 22:53:46,583 [http-nio-8080-exec-7] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL query 
+2023-06-26 22:53:46,583 [http-nio-8080-exec-7] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL statement [SELECT * FROM customer WHERE id=? OR contact=?] 
+2023-06-26 22:53:48,081 [http-nio-8080-exec-6] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL query 
+2023-06-26 22:53:48,081 [http-nio-8080-exec-6] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL statement [SELECT * FROM customer WHERE id=? OR contact=?] 
+2023-06-26 22:53:48,209 [http-nio-8080-exec-8] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL query 
+2023-06-26 22:53:48,209 [http-nio-8080-exec-8] DEBUG lk.ijse.dep10.pos.JdbcConfig$1 - Executing prepared SQL statement [SELECT * FROM customer WHERE id=? OR contact=?] 

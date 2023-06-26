@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableTransactionManagement
 public class JdbcConfig {
     @Bean
     public JdbcTemplate jdbcTemplate(DataSource dataSource){
@@ -29,22 +28,5 @@ public class JdbcConfig {
                 }
             }
         };
-    }
-
-    @Bean
-    public PlatformTransactionManager transactionManager(DataSource dataSource){
-        return new DataSourceTransactionManager(dataSource);
-    }
-
-    @Bean
-    public BasicDataSource dataSource(Environment env){
-        BasicDataSource bds = new BasicDataSource();
-        bds.setUsername(env.getRequiredProperty("spring.datasource.username"));
-        bds.setPassword(env.getRequiredProperty("spring.datasource.password"));
-        bds.setDriverClassName(env.getRequiredProperty("spring.datasource.driver-class-name"));
-        bds.setUrl(env.getRequiredProperty("spring.datasource.url"));
-        bds.setMaxTotal(env.getRequiredProperty("spring.datasource.dbcp2.max-total", Integer.class));
-        bds.setInitialSize(env.getRequiredProperty("spring.datasource.dbcp2.initial-size", Integer.class));
-        return bds;
     }
 }

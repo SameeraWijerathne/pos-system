@@ -237,6 +237,7 @@ function setDateTime(){
 
 function findCustomer(){
     const idOrContact = txtCustomer.val().trim().replace('C', '');
+
     txtCustomer.removeClass("is-invalid");
     if (!idOrContact) return;
     customer = null;

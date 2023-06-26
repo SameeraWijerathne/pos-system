@@ -21,9 +21,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
-@EnableWebMvc
-@EnableSwagger2
-@ComponentScan
 public class WebAppConfig implements WebMvcConfigurer {
     /* Swagger Configuration Bean */
     @Bean
@@ -43,18 +40,6 @@ public class WebAppConfig implements WebMvcConfigurer {
                 .version("v1")
                 .license("Copyright (c) 2023 DEP-10. All Rights Reserved.")
                 .build();
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/swagger-ui/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
-
-    }
-
-    @Bean
-    public MethodValidationPostProcessor methodValidationPostProcessor(){
-        return new MethodValidationPostProcessor();
     }
 
 }

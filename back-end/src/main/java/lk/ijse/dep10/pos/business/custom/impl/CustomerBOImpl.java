@@ -10,9 +10,9 @@ import lk.ijse.dep10.pos.dto.CustomerDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Service
 @Transactional
 public class CustomerBOImpl implements CustomerBO {

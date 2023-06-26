@@ -15,10 +15,9 @@ import lk.ijse.dep10.pos.entity.OrderDetail;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
 import java.sql.Timestamp;
 import java.util.List;
+
 @Service
 @Transactional
 public class OrderBOImpl implements OrderBO {

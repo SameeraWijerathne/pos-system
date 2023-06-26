@@ -10,10 +10,9 @@ import lk.ijse.dep10.pos.dto.ItemDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Service
 @Transactional
 public class ItemBOImpl implements ItemBO {
